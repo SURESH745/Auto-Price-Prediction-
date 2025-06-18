@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Auto Price Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-car"></i> Auto Price Prediction</h1>
+                <p>AI-Powered Vehicle Pricing with Machine Learning</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('prediction')">
+                <i class="fas fa-calculator"></i> Prediction
+            </button>
+            <button class="tab-btn" onclick="showTab('analytics')">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </button>
+            <button class="tab-btn" onclick="showTab('about')">
+                <i class="fas fa-info-circle"></i> About
+            </button>
+        </nav>
+
+        <!-- Prediction Tab -->
+        <div id="prediction" class="tab-content active">
+            <div class="prediction-container">
+                <div class="input-section">
+                    <h2><i class="fas fa-cogs"></i> Car Features</h2>
+                    <form id="predictionForm" class="prediction-form">
+                        <div class="form-grid">
+                            <!-- Basic Information -->
+                            <div class="form-group">
+                                <label for="make">Brand/Make</label>
+                                <select id="make" name="make" required>
+                                    <option value="">Select Brand</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel_type">Fuel Type</label>
+                                <select id="fuel_type" name="fuel_type" required>
+                                    <option value="">Select Fuel Type</option>
+                                    <option value="gas">Gas</option>
+                                    <option value="diesel">Diesel</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aspiration">Aspiration</label>
+                                <select id="aspiration" name="aspiration" required>
+                                    <option value="">Select Aspiration</option>
+                                    <option value="std">Standard</option>
+                                    <option value="turbo">Turbo</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="body_style">Body Style</label>
+                                <select id="body_style" name="body_style" required>
+                                    <option value="">Select Body Style</option>
+                                    <option value="sedan">Sedan</option>
+                                    <option value="hatchback">Hatchback</option>
+                                    <option value="wagon">Wagon</option>
+                                    <option value="hardtop">Hardtop</option>
+                                    <option value="convertible">Convertible</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="drive_wheels">Drive Wheels</label>
+                                <select id="drive_wheels" name="drive_wheels" required>
+                                    <option value="">Select Drive Type</option>
+                                    <option value="fwd">Front Wheel Drive</option>
+                                    <option value="rwd">Rear Wheel Drive</option>
+                                    <option value="4wd">4 Wheel Drive</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="num_of_doors">Number of Doors</label>
+                                <select id="num_of_doors" name="num_of_doors" required>
+                                    <option value="">Select Doors</option>
+                                    <option value="two">Two</option>
+                                    <option value="four">Four</option>
+                                </select>
+                            </div>
+
+                            <!-- Engine Specifications -->
+                            <div class="form-group">
+                                <label for="engine_size">Engine Size (cc)</label>
+                                <input type="number" id="engine_size" name="engine_size" min="50" max="400" step="1" placeholder="e.g., 130" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="horsepower">Horsepower</label>
+                                <input type="number" id="horsepower" name="horsepower" min="40" max="300" step="1" placeholder="e.g., 111" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="num_of_cylinders">Number of Cylinders</label>
+                                <select id="num_of_cylinders" name="num_of_cylinders" required>
+                                    <option value="">Select Cylinders</option>
+                                    <option value="two">Two</option>
+                                    <option value="three">Three</option>
+                                    <option value="four">Four</option>
+                                    <option value="five">Five</option>
+                                    <option value="six">Six</option>
+                                    <option value="eight">Eight</option>
+                                    <option value="twelve">Twelve</option>
+                                </select>
+                            </div>
+
+                            <!-- Physical Dimensions -->
+                            <div class="form-group">
+                                <label for="curb_weight">Curb Weight (lbs)</label>
+                                <input type="number" id="curb_weight" name="curb_weight" min="1000" max="5000" step="10" placeholder="e.g., 2548" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="length">Length (inches)</label>
+                                <input type="number" id="length" name="length" min="140" max="220" step="0.1" placeholder="e.g., 168.8" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="width">Width (inches)</label>
+                                <input type="number" id="width" name="width" min="60" max="80" step="0.1" placeholder="e.g., 64.1" required>
+                            </div>
+
+                            <!-- Performance -->
+                            <div class="form-group">
+                                <label for="city_mpg">City MPG</label>
+                                <input type="number" id="city_mpg" name="city_mpg" min="10" max="50" step="1" placeholder="e.g., 21" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="highway_mpg">Highway MPG</label>
+                                <input type="number" id="highway_mpg" name="highway_mpg" min="15" max="60" step="1" placeholder="e.g., 27" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="symboling">Insurance Risk Rating</label>
+                                <select id="symboling" name="symboling" required>
+                                    <option value="">Select Risk Level</option>
+                                    <option value="-3">Very Safe (-3)</option>
+                                    <option value="-2">Safe (-2)</option>
+                                    <option value="-1">Somewhat Safe (-1)</option>
+                                    <option value="0">Average (0)</option>
+                                    <option value="1">Somewhat Risky (1)</option>
+                                    <option value="2">Risky (2)</option>
+                                    <option value="3">Very Risky (3)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="predict-btn">
+                                <i class="fas fa-magic"></i> Predict Price
+                            </button>
+                            <button type="button" class="reset-btn" onclick="resetForm()">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="result-section">
+                    <div id="predictionResult" class="prediction-result hidden">
+                        <h2><i class="fas fa-dollar-sign"></i> Prediction Result</h2>
+                        <div class="result-card">
+                            <div class="price-display">
+                                <span class="currency">$</span>
+                                <span id="predictedPrice" class="price">0</span>
+                            </div>
+                            <div class="confidence-display">
+                                <span>Confidence: </span>
+                                <span id="confidence" class="confidence">0%</span>
+                            </div>
+                            <div class="model-info">
+                                <span>Model: XGBoost Regressor</span>
+                            </div>
+                        </div>
+                        <button onclick="downloadResult()" class="download-btn">
+                            <i class="fas fa-download"></i> Download Result
+                        </button>
+                    </div>
+
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <i class="fas fa-database"></i>
+                            <h3>Total Records</h3>
+                            <span id="totalRecords">205</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Model Accuracy</h3>
+                            <span>89.37%</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-trophy"></i>
+                            <h3>Best Model</h3>
+                            <span>XGBoost</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <div class="analytics-container">
+                <h2><i class="fas fa-chart-bar"></i> Model Performance & Analytics</h2>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Model Performance Comparison</h3>
+                        <canvas id="modelChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Feature Importance</h3>
+                        <canvas id="featureChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="model-metrics">
+                    <h3>Detailed Model Metrics</h3>
+                    <div class="metrics-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>R² Score</th>
+                                    <th>Adjusted R²</th>
+                                    <th>MAE</th>
+                                    <th>RMSE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="metricsTableBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Tab -->
+        <div id="about" class="tab-content">
+            <div class="about-container">
+                <h2><i class="fas fa-info-circle"></i> About This Project</h2>
+                
+                <div class="about-content">
+                    <div class="project-overview">
+                        <h3>🎯 Project Overview</h3>
+                        <p>This machine learning project predicts automobile prices based on various car features such as brand, engine specifications, physical dimensions, and performance metrics. The model helps manufacturers, dealerships, and consumers make informed pricing decisions.</p>
+                    </div>
+
+                    <div class="business-problem">
+                        <h3>🔍 Business Problem</h3>
+                        <p>In today's competitive automobile market, accurate pricing is crucial for:</p>
+                        <ul>
+                            <li><strong>Manufacturers:</strong> Setting competitive prices for new models</li>
+                            <li><strong>Dealerships:</strong> Pricing used cars appropriately</li>
+                            <li><strong>Consumers:</strong> Making informed purchasing decisions</li>
+                            <li><strong>Insurance Companies:</strong> Assessing vehicle values</li>
+                        </ul>
+                    </div>
+
+                    <div class="technical-approach">
+                        <h3>🛠️ Technical Approach</h3>
+                        <div class="approach-grid">
+                            <div class="approach-item">
+                                <h4>Data Preprocessing</h4>
+                                <ul>
+                                    <li>Missing value treatment</li>
+                                    <li>Feature encoding</li>
+                                    <li>Feature scaling</li>
+                                    <li>Target transformation</li>
+                                </ul>
+                            </div>
+                            <div class="approach-item">
+                                <h4>Models Implemented</h4>
+                                <ul>
+                                    <li>Linear Regression (Baseline)</li>
+                                    <li>Random Forest</li>
+                                    <li>K-Nearest Neighbors</li>
+                                    <li>XGBoost (Best Model)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="key-features">
+                        <h3>🚀 Key Features</h3>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-bolt"></i>
+                                <h4>Real-time Predictions</h4>
+                                <p>Input car features and get instant price predictions</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Model Comparison</h4>
+                                <p>Compare predictions from different algorithms</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-eye"></i>
+                                <h4>Interactive Analytics</h4>
+                                <p>Explore model performance and feature importance</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-download"></i>
+                                <h4>Export Results</h4>
+                                <p>Download predictions and analysis reports</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-info">
+                        <h3>📊 Project Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <strong>Project Team ID:</strong> PTID-CDS-FEB-25-2024
+                            </div>
+                            <div class="info-item">
+                                <strong>Project Code:</strong> PRCP-1017-AutoPricePred
+                            </div>
+                            <div class="info-item">
+                                <strong>Dataset:</strong> 1985 Auto Imports Database
+                            </div>
+                            <div class="info-item">
+                                <strong>Records:</strong> 205 automobile entries
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

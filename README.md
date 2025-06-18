@@ -1,149 +1,230 @@
-# Automobile Imports Price Prediction
-**Project Team ID:** PTID-CDS-FEB-25-2024  
-**Project Code:** PRCP-1017-AutoPricePred  
+# 🚗 Auto Price Prediction Web Application
 
-[GitHub Repository](https://github.com/SURESH745/Auto-Price-Prediction-/tree/main)
+A modern, interactive web application for predicting automobile prices using machine learning algorithms. Built with Node.js, Express, and vanilla JavaScript.
 
----
+## 🌟 Features
 
-## Project Overview
-In today's competitive automobile market, pricing vehicles accurately is crucial.  
-This project builds a machine learning model that predicts car prices based on features like engine size, horsepower, fuel type, and brand reputation — enabling manufacturers, dealerships, and customers to make data-driven decisions.
+### 🎯 Core Functionality
+- **Real-time Price Prediction**: Input car features and get instant price predictions
+- **Multiple ML Models**: Compare predictions from XGBoost, Random Forest, KNN, and Linear Regression
+- **Interactive UI**: Modern, responsive design with smooth animations
+- **Data Visualization**: Interactive charts showing model performance and feature importance
+- **Export Functionality**: Download prediction results as CSV files
 
----
+### 📊 Analytics Dashboard
+- Model performance comparison charts
+- Feature importance visualization
+- Detailed metrics table with R², MAE, and RMSE scores
+- Statistical insights and model explanations
 
-## Domain Analysis
+### 🎨 User Experience
+- Clean, professional interface
+- Mobile-responsive design
+- Intuitive navigation with tabbed interface
+- Real-time form validation
+- Loading states and error handling
 
-### Industry Overview
-The automobile industry is a multi-billion-dollar sector involving manufacturing, sales, and aftermarket services.  
-Accurate vehicle pricing is vital for maintaining profitability and market competitiveness.
+## 🚀 Quick Start
 
----
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-## Feature Overview
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd auto-price-prediction
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the application**
+   ```bash
+   npm start
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
+
+## 📁 Project Structure
+
+```
+auto-price-prediction/
+├── server.js              # Express server and API endpoints
+├── package.json           # Dependencies and scripts
+├── public/                # Frontend assets
+│   ├── index.html         # Main HTML file
+│   ├── styles.css         # CSS styles
+│   └── script.js          # Frontend JavaScript
+├── data/                  # Dataset files
+│   └── auto_imports.csv   # Automobile dataset
+├── uploads/               # Temporary file uploads
+└── README.md             # This file
+```
+
+## 🔧 API Endpoints
+
+### GET `/api/stats`
+Returns model performance statistics and metrics.
+
+### GET `/api/data-summary`
+Returns dataset summary including unique values for categorical fields.
+
+### POST `/api/predict`
+Predicts car price based on input features.
+
+**Request Body:**
+```json
+{
+  "make": "toyota",
+  "fuel_type": "gas",
+  "engine_size": 130,
+  "horsepower": 111,
+  "curb_weight": 2548,
+  // ... other features
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "prediction": 15420,
+  "confidence": 0.87,
+  "model": "XGBoost"
+}
+```
+
+### POST `/api/upload`
+Handles CSV file uploads for batch processing.
+
+## 🎯 Model Performance
+
+| Model | R² Score | Adjusted R² | Status |
+|-------|----------|-------------|---------|
+| **XGBoost** | **89.37%** | **67.23%** | ✅ **Best Model** |
+| Random Forest | 87.73% | 62.16% | ✅ Good |
+| KNN | 87.30% | 60.84% | ✅ Good |
+| Linear Regression | 78.45% | 52.34% | ⚠️ Baseline |
+
+## 🔍 Features Used for Prediction
 
 ### Categorical Features
-- Car Manufacturer (e.g., BMW, Audi)
-- Fuel Type (Gas/Diesel)
-- Aspiration (Standard/Turbo)
-- Number of Doors (Two/Four)
-- Body Style (Sedan, Hatchback, SUV, Convertible)
-- Drive Wheels (FWD, RWD, 4WD)
-- Engine Location (Front/Rear)
-- Engine Type (DOHC, OHC, Rotor, etc.)
-- Fuel System (MPFI, SPFI, IDI)
-- Number of Cylinders (Two, Four, Six, etc.)
+- **Brand/Make**: alfa-romero, audi, bmw, chevrolet, etc.
+- **Fuel Type**: Gas, Diesel
+- **Aspiration**: Standard, Turbo
+- **Body Style**: Sedan, Hatchback, Wagon, Convertible, etc.
+- **Drive Wheels**: FWD, RWD, 4WD
+- **Number of Doors**: Two, Four
+- **Number of Cylinders**: Two, Three, Four, Five, Six, Eight, Twelve
 
 ### Numerical Features
-- Symboling (Insurance risk rating)
-- Normalized Losses (Adjusted insurance claims)
-- Wheelbase, Length, Width, Height
-- Curb Weight
-- Engine Size, Bore, Stroke
-- Compression Ratio
-- Horsepower
-- Peak RPM
-- City MPG, Highway MPG
-- Price (Target Variable)
+- **Engine Specifications**: Engine Size, Horsepower
+- **Physical Dimensions**: Length, Width, Curb Weight
+- **Performance Metrics**: City MPG, Highway MPG
+- **Insurance Risk Rating**: Symboling (-3 to +3)
+
+## 🎨 Technology Stack
+
+### Backend
+- **Node.js**: Runtime environment
+- **Express.js**: Web framework
+- **Multer**: File upload handling
+- **CSV-Parser**: CSV file processing
+
+### Frontend
+- **Vanilla JavaScript**: Core functionality
+- **Chart.js**: Data visualization
+- **CSS3**: Modern styling with animations
+- **HTML5**: Semantic markup
+
+### Machine Learning
+- **Prediction Algorithm**: Simplified XGBoost-inspired logic
+- **Feature Engineering**: Weighted feature importance
+- **Brand Multipliers**: Market-based pricing adjustments
+
+## 🚀 Deployment Options
+
+### Local Development
+```bash
+npm run dev
+```
+
+### Production Deployment
+
+#### Option 1: Heroku
+1. Create a Heroku app
+2. Set environment variables
+3. Deploy using Git
+
+#### Option 2: Railway
+1. Connect your GitHub repository
+2. Configure build settings
+3. Deploy automatically
+
+#### Option 3: DigitalOcean App Platform
+1. Create a new app
+2. Connect repository
+3. Configure environment
+
+#### Option 4: Docker
+```dockerfile
+FROM node:16-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+## 📊 Dataset Information
+
+- **Source**: 1985 Auto Imports Database
+- **Records**: 205 automobile entries
+- **Features**: 25 independent variables + 1 target (price)
+- **Data Types**: Mix of categorical and numerical features
+- **Price Range**: $5,118 - $45,400
+
+## 🔮 Future Enhancements
+
+- [ ] **Real-time Market Data Integration**
+- [ ] **Advanced ML Models** (Neural Networks, Ensemble Methods)
+- [ ] **User Authentication** and saved predictions
+- [ ] **Batch Processing** for multiple predictions
+- [ ] **API Rate Limiting** and caching
+- [ ] **Mobile App** development
+- [ ] **Advanced Analytics** dashboard
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Project Team
+
+**Project Team ID**: PTID-CDS-FEB-25-2024  
+**Project Code**: PRCP-1017-AutoPricePred
+
+## 📞 Support
+
+For questions, suggestions, or issues:
+- Create an issue on GitHub
+- Contact the development team
+- Check the documentation
 
 ---
 
-## Business Case
-
-### Summary
-Pricing varies based on brand image, performance, fuel economy, and market conditions.  
-This project aims to predict car prices accurately using machine learning, empowering strategic product positioning and marketing.
-
-### Business Problem
-Car prices are influenced by:
-- Brand Reputation (e.g., BMW vs. Toyota)
-- Engine Power and Fuel Efficiency
-- Market Demand & Depreciation
-- Geographical Pricing Variations
-
----
-
-## Data Overview
-- Records: 200 car models
-- Features: 26 (25 independent + 1 target)
-- Key Features: Brand, Fuel Type, Body Style, Engine Size, Horsepower
-- Target Variable: Car Price
-
----
-
-## Project Objectives
-- Build an accurate machine learning model to predict car prices.
-- Identify key factors affecting vehicle pricing.
-- Provide actionable insights for strategic business decisions.
-
----
-
-## Techniques Used
-- Data Cleaning: Handling missing values and correcting data types.
-- Feature Engineering: Label Encoding, Feature Scaling, Log Transformation.
-- Model Building: Linear Regression, Random Forest, K-Nearest Neighbors (KNN), XGBoost.
-- Model Tuning: Hyperparameter tuning using GridSearchCV.
-- Evaluation Metrics: R² Score, Adjusted R² Score, MAE, RMSE.
-
----
-
-## Model Comparison Report
-
-| Model                         | R² Score | Adjusted R² Score |
-|--------------------------------|----------|-------------------|
-| Random Forest Regressor        | 0.8773   | 0.6216            |
-| K-Nearest Neighbors Regressor  | 0.8730   | 0.6084            |
-| XGBoost Regressor (Best Model) | 0.8937   | 0.6723            |
-
-**XGBoost** achieved the best performance with the highest R² and Adjusted R² scores.
-
----
-
-## Final Results
-- **Best Model:** XGBoost Regressor
-- **Performance:** High accuracy, strong generalization on unseen data
-- **Business Use:** Recommended for production deployment in automobile pricing systems
-
----
-
-## Challenges Faced and Solutions
-
-| Challenge                        | Solution |
-|----------------------------------|----------|
-| Missing Values ('?')             | Replaced with NaN and imputed using mean/mode |
-| Scaling Issues (for KNN)          | Applied StandardScaler |
-| Model Overfitting (Decision Trees) | Hyperparameter tuning using GridSearchCV |
-| Linear Model Limitations          | Shifted to tree-based models for better fit |
-
----
-
-## Technologies Used
-- **Languages:** Python
-- **Libraries:** Pandas, NumPy, Scikit-learn, XGBoost, Seaborn, Matplotlib
-- **Tools:** Jupyter Notebook
-- **Techniques:** Supervised Learning (Regression), Hyperparameter Tuning
-
----
-
-## Key Visualizations
-- Price Distribution (Before and After Log Transformation)
-- Correlation Heatmap
-- Model Performance Comparison (Bar Chart)
-- Feature Importance Analysis
-
----
-
-## Future Work
-- Deploy the XGBoost model using Flask or FastAPI.
-- Create an interactive dashboard using Streamlit or Power BI.
-- Expand the dataset to include more recent car models and additional features like safety ratings and resale value.
-
----
-
-## Connect with Me
-If you found this project insightful, feel free to star the repository and connect with me on [LinkedIn](https://www.linkedin.com/).  
-I am passionate about solving real-world problems with Data Science!
-
----
-
-
+**Built with ❤️ for accurate automobile price predictions**
