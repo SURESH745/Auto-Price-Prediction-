@@ -424,7 +424,7 @@ function initializeFeatureChart() {
     const importance = [0.25, 0.20, 0.15, 0.10, 0.08, 0.07, 0.06, 0.05, 0.03, 0.01];
 
     charts.featureChart = new Chart(ctx, {
-        type: 'horizontalBar',
+        type: 'bar',
         data: {
             labels: features,
             datasets: [{
@@ -436,6 +436,7 @@ function initializeFeatureChart() {
             }]
         },
         options: {
+            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
             scales: {
