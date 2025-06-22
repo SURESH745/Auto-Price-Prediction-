@@ -2,6 +2,13 @@
 
 A modern, interactive web application for predicting automobile prices using machine learning algorithms. Built with Node.js, Express, and vanilla JavaScript.
 
+## 🔗 Live Demo
+
+👉 **[Video Live Project](https://youtu.be/qxSBpXS0Rsg?si=-0uz8PZmzEoy-_S2)**
+
+## 🔗 Live Link
+👉 **[View Live Project](https://beautiful-valkyrie-7c0ce5.netlify.app)**
+
 ## 🌟 Features
 
 ### 🎯 Core Functionality
